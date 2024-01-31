@@ -1,0 +1,399 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+* {
+  font-family: 'Varela', Helvetica, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+html {
+  //overflow: hidden !important;
+  font-size: 16px;
+  @media (max-width: 960px) {
+    font-size: 15px;
+  }
+}
+
+body {
+  background: #f8f8f8;
+}
+
+.theme--light.v-application {
+  //background: #f8f8f8 !important;
+}
+
+.bg-light-gray {
+  background: #f8f8f8 !important;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  line-height: 1.3rem;
+  font-size: 0.9rem;
+}
+
+p, small,
+.v-application .v-card__title,
+.v-application div[class^="text"],
+.v-application .text-h6,
+.v-application .text-h4,
+.v-application .text-h5,
+.v-application .text-h3,
+.v-application .text-h2,
+.v-application .text-h1,
+.v-application .text-body-1,
+.v-application div[class^="body"],
+.v-application div[class^="title"],
+.v-application div[class^="subtitle"],
+.v-application div[class^="subtitle-2"],
+.v-application div[class^="headline"],
+.v-application div[class^="display"],
+.v-application div[class^="caption"],
+.v-dialog > .v-card > .v-card__title {
+  font-family: 'Varela', Helvetica, Arial, sans-serif !important;
+  line-height: 1.2;
+}
+
+p {
+  font-size: .9rem;
+  color: #999;
+}
+
+small {
+  font-size: .73rem !important;
+}
+
+.nav-title {
+  overflow: hidden;
+
+  .v-toolbar__title {
+    line-height: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  small {
+    font-size: .8rem;
+    display: inline-flex;
+  }
+}
+
+.v-application div[class^="title"] {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}
+
+.v-application .v-card__title {
+  font-size: 1rem;
+}
+
+.v-application div.banner-title {
+  font-family: 'Varela', Helvetica, Arial, sans-serif !important;
+  line-height: 1.3;
+  font-weight: bold;
+  font-size: 2rem;
+  @media (min-width: 960px) {
+    font-family: 'Archivo Black', sans-serif !important;
+    font-size: 3rem;
+  }
+}
+
+.fill-width {
+  width: 100% !important;
+}
+
+.fill-height {
+  height: 100% !important;
+}
+
+.text-title {
+  font-size: 1rem !important;
+  color: #2e3c55 !important;
+
+  &-md {
+    font-size: .97rem !important;
+  }
+}
+
+.text-small {
+  font-size: .9rem !important;
+}
+
+.v-bottom-sheet.v-dialog.v-bottom-sheet--inset {
+  border-radius: 15px 15px 0 0;
+  overflow: hidden;
+}
+
+.nav-dark {
+  background: linear-gradient(to right, #031929, #222231)
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.status-title {
+  font-size: 1.3rem;
+  max-width: 90%;
+}
+
+.v-list-item__title {
+  font-size: .96rem !important;
+}
+
+.border {
+  border: 1px solid rgba(0, 0, 0, .1) !important;
+
+  &-bottom {
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+  }
+
+  &-top {
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+  }
+}
+
+.text-strikethrough {
+  text-decoration: line-through;
+}
+
+.tns-outer {
+  padding: 0 !important;
+  position: relative;
+}
+
+.tns-controls {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.tns-nav {
+  text-align: center;
+  margin: 10px 0;
+  position: absolute;
+  bottom: -50px;
+  width: 100%;
+}
+
+.tns-nav > [aria-controls] {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  margin: 0 5px;
+  border-radius: 50%;
+  background: #ddd;
+  border: 0;
+}
+
+.tns-outer [aria-controls], .tns-outer [data-action] {
+  cursor: pointer;
+}
+
+.tns-nav > .tns-nav-active {
+  background: #999;
+}
+
+.in-cart-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.v-label {
+  font-size: .94rem !important;
+}
+
+.v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
+  z-index: 5;
+}
+
+.bg-page-grey {
+  background: #fafafa;
+}
+
+.position-static {
+  position: static !important;
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  @media (min-width: 960px) {
+    font-size: 1.5rem;
+    font-family: 'Archivo Black', sans-serif !important;
+  }
+}
+
+header.v-toolbar.v-app-bar {
+  z-index: 1;
+}
+
+.v-sheet.v-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.nav-background-on-scroll {
+  .v-toolbar__content {
+    transition: all .3s ease-in-out;
+  }
+
+  &.scrolled {
+    .v-toolbar__content {
+      background: #fff;
+      box-shadow: 0 2px 7px rgb(0, 0, 0, .15);
+    }
+  }
+}
+
+.shadow {
+  box-shadow: 0 2px 7px rgb(0, 0, 0, .08) !important;
+}
+
+.w-hover-box {
+  .hover-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    opacity: 0;
+    transition: all .15s ease-in-out;
+    background: rgba(0, 0, 0, .2);
+    z-index: 1;
+  }
+
+  &:hover {
+    .hover-box {
+      opacity: 1;
+    }
+  }
+}
+
+.absolute {
+  position: absolute;
+
+  &.left {
+    left: 0;
+  }
+
+  &.bottom {
+    bottom: 0;
+  }
+
+  &.right {
+    right: 0;
+  }
+
+  &.top {
+    top: 0;
+  }
+
+  &.center-y {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &.center-x {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.center-x-y {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.appbar-transparent-overlay {
+  background: transparent linear-gradient(to bottom, rgba(0, 0, 0, .4), transparent) !important;
+
+  ::v-deep {
+    .v-toolbar__content {
+      box-shadow: none;
+    }
+  }
+}
+
+.swiper-slide {
+  height: initial !important;
+}
+
+.v-application .text-body-2 {
+  font-size: .8rem !important;
+  font-family: inherit !important;
+}
+
+.text-smaller {
+  font-size: .85rem !important;
+}
+
+@media (max-width: 700px) {
+  .slight-overlay {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, .04);
+      z-index: 1;
+    }
+  }
+}
+
+.screen-height {
+  height: calc((var(--vh, 1vh) * 100));
+}
+
+.input-lg input, .input-lg label {
+  font-size: 1.1rem !important;
+}
+
+.updown-animation {
+  animation-name: updown;
+  animation-timing-function: ease-in-out;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: infinite;
+}
+
+@keyframes updown {
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+
+.disabled {
+  user-select: none;
+  cursor: default;
+  opacity: .7;
+}
