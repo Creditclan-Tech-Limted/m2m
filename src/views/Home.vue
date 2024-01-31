@@ -90,8 +90,8 @@ export default {
       categories: [],
       current: null,
       backendDomain: 'http://localhost:4200',
-      // cc_endpoint: 'https://ccendpoints.herokuapp.com/api/v2/m2m',
-      cc_endpoint: 'http://localhost:4100/api/v2/m2m',
+      cc_endpoint: 'https://ccendpoints.herokuapp.com/api/v2/m2m',
+      // cc_endpoint: 'http://localhost:4100/api/v2/m2m',
       loading: false,
       swiperOptions: {
         slidesPerView: 1.3,
