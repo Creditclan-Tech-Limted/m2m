@@ -49,7 +49,7 @@ const mutations = {
       const updatedItems = state.items.map(c => (+c.id === +item.id ? { ...c, qty: c.qty, item_amount: (+c.price * +c.qty), plan: { price: c.price, quantity: c.qty } } : c));
       state.items = updatedItems;
     } else {
-      const newItem = { ...item, qty: 1, item_amount: (+item.price * 1), plan: { price: item.price, quantity: 1 } };
+      const newItem = { ...item, qty: item.quantity, item_amount: (+item.price * item.quantity), plan: { price: item.price, quantity: item.quantity } };
       state.items = [newItem, ...state.items];
     }
   },

@@ -22,14 +22,14 @@ export default {
     async addView() {
       const views = JSON.parse(localStorage.getItem('views')) || [];
       if (!views.includes(this.item.id)) {
-        await this.$http.get(`/item/${ this.item.id }/view`);
+        await this.$http.get(`/item/${this.item.id}/view`);
         views.push(this.item.id);
         localStorage.setItem('views', JSON.stringify(views));
       }
     },
     async addLike() {
       if (!this.liked) {
-        const res = await this.$http.get(`/item/${ this.item.id }/like`);
+        const res = await this.$http.get(`/item/${this.item.id}/like`);
         if (res.data.status === true) {
           const likes = JSON.parse(localStorage.getItem('likes')) || []
           likes.push(this.item.id);

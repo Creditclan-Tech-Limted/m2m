@@ -129,10 +129,10 @@ export default {
         }
 
         const { data } = await this.$http.get(url);
-        this.items = data.response;
+        this.items = data.data;
         this.pagination.cursor = data.cursor;
         this.pagination.end = data.end;
-        this.$store.commit('global/set', { products: data.response });
+        this.$store.commit('global/set', { products: data.data });
         this.loading = false;
       } catch (e) {
         this.loading = false;

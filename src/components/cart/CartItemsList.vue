@@ -14,7 +14,7 @@
           Remove
         </button>
         <div class="qtyBtn-wrapper">
-          <button :disabled="item.qty === 1" @click=handleQtyDecrement(item.id) class="qtyBtn">-</button>
+          <button :disabled="disableAction(item)" @click=handleQtyDecrement(item.id) class="qtyBtn">-</button>
           <span>{{ item.qty || 0 }}</span>
           <button @click=handleQtyIncrement(item.id) class="qtyBtn">+</button>
         </div>
@@ -44,7 +44,8 @@ export default {
   data() {
     return {
       preview: false,
-      selected: null
+      selected: null,
+      maxtItemIds: [114],
     }
   },
   methods: {
@@ -60,6 +61,21 @@ export default {
     },
     handleQtyDecrement(id) {
       this.$store.commit('cart/decreaseQuantity', id);
+    },
+    disableAction(item) {
+      if (
+        this.maxtItemIds?.includes(+item.categoryM2MId) &&
+        +item.qty === 3
+      ) {
+        return true;
+      } else if (
+        !this.maxtItemIds?.includes(+item.categoryM2MId) &&
+        +item.qty === 1
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
   },

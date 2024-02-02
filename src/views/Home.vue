@@ -17,8 +17,8 @@
             <div class="body-1 black--text d-flex flex-column mt-2 pr-16 pr-md-0">
               Connect with credit stores from Instagram, Jiji, Jumia, Konga, etc
             </div>
-            <v-btn @click="handleCategoryClick({ id: 'all' })" color="primary" class="mt-6 px-6" elevation="0" rounded
-              large>
+            <v-btn @click="handleCategoryClick({ name: 'All', id: 'all' })" color="primary" class="mt-6 px-6" elevation="0"
+              rounded large>
               Start shopping
             </v-btn>
           </div>
@@ -69,7 +69,12 @@
       </v-col>
     </v-row>
 
-    <div v-if="!loading && !categories.length">No category yet</div>
+    <div v-if="!loading && !categories.length"
+      class="container--fluid fill-height d-flex flex-column justify-center align-center text-center mt-5">
+      <v-icon size="200">mdi-link-off</v-icon>
+      <div class="display-1 mt-12 font-weight-bold text--primary">Oops! No category found</div>
+      <p class="mt-5" style="max-width: 300px">You do not have any category at the moment, please check back.</p>
+    </div>
 
 
   </div>
@@ -131,7 +136,6 @@ export default {
       else this.views.noOrder = true;
     },
     handleCategoryClick(category) {
-      console.log(category)
       this.$store.commit('global/set', { query: category.name });
       // this.$bus.$emit('modal', 'search');
       let query = { q: category.name, id: category.id };

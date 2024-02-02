@@ -12,10 +12,8 @@
           <v-card outlined rounded="4" class="px-4 py-3 mb-4">
             <v-subheader class="pa-0 mb-2 font-weight-bold" style="height: initial;">Product</v-subheader>
             <div class="d-flex align-center">
-              <v-img
-                :src="item.primary_picture || item.images[0]" :aspect-ratio="1" contain class="border rounded-lg mr-2"
-                style="max-width: 50px; min-width: 50px"
-              />
+              <v-img :src="item.primary_picture || item.images[0]" :aspect-ratio="1" contain
+                class="border rounded-lg mr-2" style="max-width: 50px; min-width: 50px" />
               {{ item.name }}
             </div>
           </v-card>
@@ -50,8 +48,7 @@
                         </v-list-item-icon>
                         <v-list-item-content class="my-0 pa-0 white--text">
                           <v-list-item-title
-                            style="font-size: .9rem!important; white-space: break-spaces; line-height: 1.4"
-                          >
+                            style="font-size: .9rem!important; white-space: break-spaces; line-height: 1.4">
                             No free delivery
                           </v-list-item-title>
                         </v-list-item-content>
@@ -62,40 +59,32 @@
                         </v-list-item-icon>
                         <v-list-item-content class="my-0 pa-0 white--text">
                           <v-list-item-title
-                            style="font-size: .9rem!important; white-space: break-spaces; line-height: 1.4"
-                          >
+                            style="font-size: .9rem!important; white-space: break-spaces; line-height: 1.4">
                             Early repayment Bonus
                           </v-list-item-title>
                         </v-list-item-content>
-                      </v-list-item
-                      >
+                      </v-list-item>
                       <v-list-item class="px-0 py-1" style="min-height: initial">
                         <v-list-item-icon class="my-0 mr-2 white--text" style="min-width: initial;">
                           <v-icon size="10">mdi-circle-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-content class="my-0 pa-0 white--text">
                           <v-list-item-title
-                            style="font-size: .9rem!important; white-space: break-spaces; line-height: 1.4"
-                          >
+                            style="font-size: .9rem!important; white-space: break-spaces; line-height: 1.4">
                             5% late payment penalty
                           </v-list-item-title>
                         </v-list-item-content>
-                      </v-list-item
-                      >
+                      </v-list-item>
                     </v-list>
-                    <v-btn
-                      v-if="plan.items.slice(4, plan.items.length).length"
-                      @click="show[i] = !show[i]" text block class="d-flex justify-space-between" rounded color="white"
-                    >
+                    <v-btn v-if="plan.items.slice(4, plan.items.length).length" @click="show[i] = !show[i]" text block
+                      class="d-flex justify-space-between" rounded color="white">
                       {{ show[i] ? 'Show less' : 'Show more' }}
                       <v-icon>{{ show[i] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
                     </v-btn>
                   </v-card-text>
                   <v-card-actions class="px-8 mt-auto">
-                    <v-btn
-                      v-if="!inCart || planSelected.id !== plan.id" class="d-flex justify-space-between px-6"
-                      @click="handleAddToCart(plan)" color="white" elevation="0" block rounded
-                    >
+                    <v-btn v-if="!inCart || planSelected.id !== plan.id" class="d-flex justify-space-between px-6"
+                      @click="handleAddToCart(plan)" color="white" elevation="0" block rounded>
                       Add to cart
                       <v-icon>mdi-arrow-right</v-icon>
                     </v-btn>
@@ -119,10 +108,8 @@
                 </v-card-subtitle>
                 <v-divider class="mb-3" style="border-color: rgba(255, 255, 255, .4)"></v-divider>
                 <v-card-actions class="px-8 mt-auto">
-                  <v-btn
-                    class="d-flex justify-space-between px-6"
-                    @click="purchaseOutright()" color="white" elevation="0" block rounded
-                  >
+                  <v-btn class="d-flex justify-space-between px-6" @click="purchaseOutright()" color="white" elevation="0"
+                    block rounded>
                     Add to cart
                     <v-icon>mdi-arrow-right</v-icon>
                   </v-btn>
