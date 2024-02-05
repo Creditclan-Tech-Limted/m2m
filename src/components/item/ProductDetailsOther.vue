@@ -8,21 +8,31 @@
         </v-btn>
       </div>
       <div class="title text--lighten-2">{{ item.name }}</div>
-      <v-divider class="my-4" v-if="item.specM2Ms"></v-divider>
+      <v-divider class="my-4" v-if="item.variations"></v-divider>
       <div>
-        <v-radio-group v-model="row" column v-if="item.specM2Ms">
+        <!-- <v-radio-group v-model="row" column v-if="item.specM2Ms">
           <v-radio v-for="option in item.specM2Ms" :key="option.id" :label="option.name" :value="option.id"></v-radio>
-        </v-radio-group>
-        <v-divider class="" v-if="item.specM2Ms"></v-divider>
+        </v-radio-group> -->
+
+        <div v-for="(options, key) in item.variations" :key="key">
+          <span class="text-uppercase" style="font-weight: bold;">{{ key }}</span>
+          <v-radio-group v-model="selectedOptions[key]" column v-if="options.length > 0">
+            <v-radio class="text-capitalize" v-for="option in options" :key="option.id" :label="option.name"
+              :value="option.name"></v-radio>
+          </v-radio-group>
+        </div>
+
+        <v-divider class="" v-if="item.variations"></v-divider>
         <div class="d-flex justify-space-between mt-6">
           <div class="qtyBtn-wrapper">
             <button :disabled="disableAction(item.categoryM2MId)" @click=handleQtyDecrement() class="qtyBtn">-</button>
             <span>{{ quantity }}</span>
             <button @click=handleQtyIncrement() class="qtyBtn">+</button>
           </div>
-          <v-btn @click="addToCart(item)" class="flex-grow- rounded-lg" color="primary" depressed>
+          <v-btn :disabled="!validateOptions(item.variations, selectedOptions) || loading" @click="addToCart(item)"
+            class="flex-grow- rounded-lg" color="primary" depressed>
             <v-icon left>mdi-cart</v-icon>
-            Add to cart
+            <span v-if="loading">Adding...</span> Add to cart
           </v-btn>
         </div>
       </div>
@@ -54,15 +64,17 @@ export default {
   data() {
     return {
       row: '',
+      selectedOptions: {},
       cart: this.$store.state.cart.items,
       maxtItemIds: [114],
       quantity: 1,
+      loading: false,
+      cc_endpoint: 'https://ccendpoints.herokuapp.com/api/v2/m2m',
 
     }
   },
   mounted() {
     this.updateQuantity(this.item);
-    console.log("...mounted");
   },
   watch: {
     item: {
@@ -84,9 +96,20 @@ export default {
       });
       this.$bus.$emit('cart');
     },
-    addToCart(item) {
-      this.$store.commit('cart/addItem', { ...item, quantity: this.quantity, spec: this.row });
-      this.$bus.$emit('cart');
+    async addToCart(item) {
+      try {
+        this.loading = true;
+        const spec_name = Object.values(this.selectedOptions).join(', ');
+        const payload = { product_id: item.id, spec_name }
+        const { data } = await this.$http.post(`${this.cc_endpoint}/create/spec`, payload);
+        console.log(data.data.id);
+        this.loading = false;
+        this.$store.commit('cart/addItem', { ...item, quantity: this.quantity, spec: data.data.id });
+        this.$bus.$emit('cart');
+      } catch (error) {
+        this.loading = false;
+        console.log(error);
+      }
       // this.$emit('close')
     },
     handleQtyIncrement() {
@@ -96,7 +119,6 @@ export default {
       this.quantity--;
     },
     updateQuantity(item) {
-      console.log(item);
       const foundItem = this.$store.state.cart.items.find(r => +r.id === +item.id);
       this.quantity = foundItem ? foundItem.qty : [114].includes(+item?.categoryM2MId) ? 3 : 1;
     },
@@ -109,8 +131,22 @@ export default {
       } else {
         return false
       }
+    },
+    validateOptions(validations, selectedOptions) {
+      for (const key in validations) {
+        if (
+          Object.prototype.hasOwnProperty.call(validations, key) &&
+          (!selectedOptions[key] || selectedOptions[key].length === 0)
+        ) {
+          return false;
+        }
+      }
+
+      return true;
     }
+
   }
+
 }
 </script>
 
