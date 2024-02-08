@@ -8,28 +8,29 @@
         </v-btn>
       </div>
       <div class="title text--lighten-2">{{ item.name }}</div>
-      <v-divider class="my-4" v-if="item.variations"></v-divider>
+      <v-divider class="my-4" v-if="variations"></v-divider>
       <div>
-        <!-- <v-radio-group v-model="row" column v-if="item.specM2Ms">
-          <v-radio v-for="option in item.specM2Ms" :key="option.id" :label="option.name" :value="option.id"></v-radio>
-        </v-radio-group> -->
-
-        <div v-for="(options, key) in item.variations" :key="key">
-          <span class="text-uppercase" style="font-weight: bold;">{{ key }}</span>
-          <v-radio-group v-model="selectedOptions[key]" column v-if="options.length > 0">
-            <v-radio class="text-capitalize" v-for="option in options" :key="option.id" :label="option.name"
-              :value="option.name"></v-radio>
-          </v-radio-group>
+        <div v-if="loadingVariation" class="mt-5" style="width: 100%;">
+          <div class="loader"></div>
         </div>
+        <template v-if="!loadingVariation && variations">
+          <div v-for="(options, key) in variations" :key="key">
+            <span class="text-uppercase" style="font-weight: bold;">{{ key }}</span>
+            <v-radio-group v-model="selectedOptions[key]" column v-if="options.length > 0">
+              <v-radio class="text-capitalize" v-for="(option, index) in options" :key="index" :label="option.value"
+                :value="option.value"></v-radio>
+            </v-radio-group>
+          </div>
+        </template>
 
-        <v-divider class="" v-if="item.variations"></v-divider>
+        <v-divider class="" v-if="variations"></v-divider>
         <div class="d-flex justify-space-between mt-6">
           <div class="qtyBtn-wrapper">
-            <button :disabled="disableAction(item.categoryM2MId)" @click=handleQtyDecrement() class="qtyBtn">-</button>
+            <button :disabled="disableAction(item.category_id)" @click=handleQtyDecrement() class="qtyBtn">-</button>
             <span>{{ quantity }}</span>
             <button @click=handleQtyIncrement() class="qtyBtn">+</button>
           </div>
-          <v-btn :disabled="!validateOptions(item.variations, selectedOptions) || loading" @click="addToCart(item)"
+          <v-btn :disabled="!validateOptions(variations, selectedOptions) || loading" @click="addToCart(item)"
             class="flex-grow- rounded-lg" color="primary" depressed>
             <v-icon left>mdi-cart</v-icon>
             <span v-if="loading">Adding...</span> Add to cart
@@ -59,6 +60,7 @@ export default {
   components: { ItemPicturesCarousel },
   mixins: [item],
   created() {
+    console.log(this.item)
     if (!`${this.item.id}`.includes('temp')) this.addView();
   },
   data() {
@@ -70,17 +72,21 @@ export default {
       quantity: 1,
       loading: false,
       cc_endpoint: 'https://ccendpoints.herokuapp.com/api/v2/m2m',
-
+      loadingVariation: false,
+      variations: null,
     }
   },
   mounted() {
+    this.getVariations(this.item);
     this.updateQuantity(this.item);
   },
   watch: {
     item: {
       immediate: true, // This will trigger the watch callback immediately after the component is created
       handler(newValue) {
+        this.getVariations(newValue);
         this.updateQuantity(newValue);
+
       },
     },
   },
@@ -120,7 +126,7 @@ export default {
     },
     updateQuantity(item) {
       const foundItem = this.$store.state.cart.items.find(r => +r.id === +item.id);
-      this.quantity = foundItem ? foundItem.qty : [114].includes(+item?.categoryM2MId) ? 3 : 1;
+      this.quantity = foundItem ? foundItem.qty : this.maxtItemIds.includes(+item?.category_id) ? 3 : 1;
     },
     disableAction(id) {
       if (this.maxtItemIds?.includes(+id) && (+this.quantity === 3)) {
@@ -141,8 +147,18 @@ export default {
           return false;
         }
       }
-
       return true;
+    },
+    async getVariations(item) {
+      try {
+        this.loadingVariation = true;
+        const { data } = await this.$http.get(`${this.cc_endpoint}/retrieve/variations?group_id=${item.group_id}`);
+        this.variations = data.data;
+        this.loadingVariation = false;
+      } catch (error) {
+        this.loadingVariation = false
+        console.log(error);
+      }
     }
 
   }
@@ -173,5 +189,24 @@ export default {
 .item-wrapper {
   display: flex;
   gap: 10px;
+}
+
+.loader {
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
